@@ -1,0 +1,14 @@
+;  called from rtSuper.$buildNavMenus
+;  initialise this application's navigation menu items
+Do llGroups.$cols.$add('container',kCharacter,kSimplechar,100)     ;; remote form container name
+Do llGroups.$cols.$add('code',kCharacter,kSimplechar,50)     ;; string table ID
+Do llGroups.$cols.$add('group',kCharacter,kSimplechar,50)     ;; string table ID
+Do llGroups.$cols.$add('params',kCharacter,kSimplechar,1000)     ;; remote form container name
+
+;  add these lines in the order they will appear in the Navigation Menu
+Do llGroups.$add('rjsContainer','FORM_START','NAVMENU_DATA')
+
+Do llGroups.$add('infra.rjsReferenceAll','FORM_CFG','NAVMENU_CONFIG')
+Do llGroups.$add('infra.rjsUserAccess','FORM_ACCESS','NAVMENU_CONFIG')
+
+Quit method llGroups

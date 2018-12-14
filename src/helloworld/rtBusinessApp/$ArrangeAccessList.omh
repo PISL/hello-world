@@ -1,0 +1,69 @@
+Do $debugMessage(con($class().$name,' / ',$cmethod().$name,' - ',tlPermissions.$linecount,' permissions granted for ',trCurrUser.USR_NAME))
+
+Calculate llPermissions as $ctask.tlPermissions
+Do llPermissions.$cols.FormPrefix.$removeduplicates(kTrue)
+Calculate llPermissions.$line as 0
+While $Loop(llPermissions)
+	Switch low(llPermissions.FormPrefix)
+		Case 'hw'     ;; reports
+			Do tlAuthorisedForms.$add('FORM_START','Greetings','rjsContainer',0,60,1,lcGroupFrequent)
+			
+		Case 'rfo'     ;; reference organisation
+			Do tlAuthorisedForms.$add('FORM_RFO','Organisation configuration','infra.rjsReferenceAll',0,10,1,lcGroupInfrequent)
+		Case 'rfl'     ;; reference local
+			Do tlAuthorisedForms.$add('FORM_RFL','Site configuration','infra.rjsReferenceAll',0,20,1,lcGroupInfrequent)
+		Case 'rfg'     ;; reference global
+			Do tlAuthorisedForms.$add('FORM_RFG','Global configuration','infra.rjsReferenceAll',0,30,1,lcGroupInfrequent)
+			
+		Case 'usr','USR'     ;; users
+			Do tlAuthorisedForms.$add('FORM_USERS','Users','infra.rjsUserAccess',0,10,1,lcGroupLowLevel)
+		Case 'rol','ROL'     ;; roles
+			Do tlAuthorisedForms.$add('FORM_ROLES','User access Roles','infra.rjsUserAccess',0,20,1,lcGroupLowLevel)
+		Case 'per','PER'     ;; permissions
+			Do tlAuthorisedForms.$add('FORM_PERMISSIONS','User access Permissions','infra.rjsUserAccess',0,30,1,lcGroupLowLevel)
+	End Switch
+	
+End While
+
+
+;  sort for consistent arrangement
+Do tlAuthorisedForms.$sort($ref.group,0,$ref.order,0,$ref.desc,0)     ;; group added 21/3/14 RSM for aestetics
+
+;  prepare for Organisational exceptions
+Calculate lcExceptionSuffix as $ctask.trGroupOrg.ExceptionSuffixSTB
+
+;  localise the visible menu items
+Calculate tlAuthorisedForms.$line as 0
+While $Loop(tlAuthorisedForms)
+	;  RSM  27 JUL 15 to support organisational exceptions in string tables
+	If lcExceptionSuffix<>''
+		Do toStrings.$StringTableEntry(con(tlAuthorisedForms.C1,'_',lcExceptionSuffix),tlAuthorisedForms.C2) Returns lbValid
+	Else
+		Calculate lbValid as kFalse
+	End If
+	If not(lbValid)
+		Do toStrings.$StringTableEntry(con(tlAuthorisedForms.C1),tlAuthorisedForms.C2) Returns lbValid
+	End If
+	
+	If tlAuthorisedForms.$line>1
+		If tlAuthorisedForms.group<>tlAuthorisedForms.[tlAuthorisedForms.$line-1].group
+			;  insert a blank line above     ;; these lines must be marked VISIBLE
+			Do tlAuthorisedForms.$addbefore(tlAuthorisedForms.$line)
+			;  does not change line no, so current line now points to blank line
+			Calculate tlAuthorisedForms.visible as kTrue     ;; set visibility, then increment current line
+			Calculate tlAuthorisedForms.$line as tlAuthorisedForms.$line+1
+		End If
+	End If
+End While
+
+;  add invisible menu items, these will be called programmatically and not from the drop list
+;  Do tlAuthorisedForms.$add('FORM_FEEDBACK','','infra.rfUserInput','0','999',0)
+
+Do ilAuthorisedForms.$copydefinition(tlAuthorisedForms)
+Do tlAuthorisedForms.$search($ref.visible=kTrue,1,0,1,1)
+Do ilAuthorisedForms.$merge(tlAuthorisedForms,kTrue,kTrue,kTrue)
+Do tlAuthorisedForms.$search(0)
+
+Calculate $cinst.$objs.ilAuthorisedForms.$::listheight as min(20,ilAuthorisedForms.$linecount)
+
+Do $debugMessage(con($class().$name,' / ',$cmethod().$name,' - ',tlAuthorisedForms.$linecount,' forms listed for ',trCurrUser.USR_NAME))

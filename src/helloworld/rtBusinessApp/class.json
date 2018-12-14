@@ -1,0 +1,150 @@
+{
+	"classtype": "kRemoteTask",
+	"internalversion": 10,
+	"superclass": "infra.rtSuper",
+	"nextident": 1,
+	"tvardefs": [
+		{
+			"name": "tlAuthorisedForms",
+			"order": 4,
+			"type": "kList",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "tlOpenConferences",
+			"order": 11,
+			"type": "kList",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "tlPermissions",
+			"order": 2,
+			"type": "kList",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trChangingForm",
+			"order": 3,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trCurrentConference",
+			"order": 9,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trCurrentDelegate",
+			"order": 10,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trCurrentForm",
+			"order": 6,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trCurrUser",
+			"order": 1,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trFormat",
+			"order": 12,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trGroupOrg",
+			"order": 5,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "trParameters",
+			"order": 8,
+			"type": "kRow",
+			"subtype": "",
+			"sublen": 0
+		}
+	],
+	"cvardefs": [
+
+	],
+	"ivardefs": [
+		{
+			"name": "ibFormLogsAccess",
+			"order": 4,
+			"type": "kBoolean",
+			"subtype": 0,
+			"sublen": 0,
+			"initval": "kFalse",
+			"desc": "if a remote form (eg. rfSessionAttendance) does the trLogAccess.$insert it must set this to kTrue"
+		},
+		{
+			"name": "ibResponsive",
+			"order": 3,
+			"type": "kBoolean",
+			"subtype": 0,
+			"sublen": 0,
+			"initval": "kFalse",
+			"desc": "this will be set to kTrue by rjsBusinessApp to change certain interface options, eg. tlAuthorisedForms"
+		},
+		{
+			"name": "ilEditStack",
+			"order": 2,
+			"type": "kList",
+			"subtype": "",
+			"sublen": 0
+		},
+		{
+			"name": "ilRemoteFormsOpen",
+			"order": 1,
+			"type": "kList",
+			"subtype": "",
+			"sublen": 0
+		}
+	],
+	"properties": {
+		"basehttpresponseheaders": "",
+		"collectperformancedata": false,
+		"componenttype": "kCompStoreHidden",
+		"createdate": "2018-12-04 14:31:54",
+		"desc": "",
+		"editor": "",
+		"editordata": "",
+		"external": true,
+		"issupercomponent": false,
+		"localtestdata": "",
+		"localtime": true,
+		"maxtime": 0,
+		"maxusers": 0,
+		"moddate": "2018-12-12 12:24:53",
+		"restful": false,
+		"restfulapiname": "",
+		"showascheckedout": false,
+		"stringtable": "",
+		"timeout": 15,
+		"userinfo": "",
+		"version": "2",
+		"webservice": ""
+	},
+	"inheritedproperties": [
+		"designtaskname",
+		"componenticon"
+	]
+}

@@ -1,0 +1,2 @@
+Calculate tConstants.debugMode as not(tConstants.debugMode)
+Do $cinst.$behaviour()

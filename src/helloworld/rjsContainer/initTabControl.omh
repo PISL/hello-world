@@ -1,0 +1,29 @@
+;  initialise the TabControl $enabled and select first enabled tab
+Calculate inTabCount as 1
+
+Calculate llAllowed as tlPermissions
+Do llAllowed.$search(low($ref.FormPrefix)='hw',1,0,0,0) Returns lbHelloTab
+
+Calculate $cinst.$objs.TabControl_GREET.$selectedtab as 1
+Calculate $cinst.$objs.TabControl_GREET.$tabvisible as lbHelloTab
+Do ilTabShortcuts.$add()
+If lbHelloTab
+	Calculate ilTabShortcuts.[ilTabShortcuts.$linecount].key as inTabCount
+	Calculate inTabCount as inTabCount+1
+End If
+
+Calculate $cinst.$objs.TabControl_GREET.$selectedtab as 2
+Calculate $cinst.$objs.TabControl_GREET.$tabvisible as kFalse
+
+Calculate $cinst.$objs.TabControl_GREET.$selectedtab as 3
+Calculate $cinst.$objs.TabControl_GREET.$tabvisible as kFalse
+
+If lbHelloTab
+	Calculate inCurrentTab as 1
+	Do $ctask.$setCurrentForm('code','FORM_VEN')
+	;  Else If
+	;  Calculate inCurrentTab as 2
+	;  Else If
+	;  Calculate inCurrentTab as 3
+End If
+Calculate $cinst.$objs.TabControl_GREET.$currenttab as inCurrentTab

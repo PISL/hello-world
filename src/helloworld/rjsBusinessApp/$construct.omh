@@ -1,0 +1,5 @@
+;  Breakpoint
+Do inherited
+
+;  remove the following line
+Calculate icPrompt as con("user: console      password: cxcxcxc")
